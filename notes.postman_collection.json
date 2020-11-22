@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "f21f023f-3c52-4d2b-87b2-92407c006cfd",
+		"name": "Notes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ivan\",\r\n    \"password\": \"123456\",\r\n    \"passwordConfirm\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{note-server-url}}/auth/signup",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e031d33c-3187-49fc-bd78-0ab88811dbb9",
+								"exec": [
+									"const res = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.environment.set(\"note-server-token\", res.token);\r",
+									"\r",
+									"tests[\"note-server-token\"] = true;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ivan\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{note-server-url}}/auth/signin",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/auth/signout",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"auth",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "note",
+			"item": [
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/note",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note"
+							],
+							"query": [
+								{
+									"key": "cursor",
+									"value": "9",
+									"description": "Guid заметки после которой нужно отобразить список. Необязательный параметр",
+									"disabled": true
+								},
+								{
+									"key": "count",
+									"value": "2",
+									"description": "Кол-во заметок. Необязательный параметр",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Жили у бабуси, два весёлых гуся...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{note-server-url}}/note",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/note/:noteId",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note",
+								":noteId"
+							],
+							"variable": [
+								{
+									"key": "noteId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Жили у гугуси, две весёлых буси...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{note-server-url}}/note/:noteId",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note",
+								":noteId"
+							],
+							"variable": [
+								{
+									"key": "noteId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/note/:noteId",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note",
+								":noteId"
+							],
+							"variable": [
+								{
+									"key": "noteId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "share",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/note/:noteId/share",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"note",
+								":noteId",
+								"share"
+							],
+							"variable": [
+								{
+									"key": "noteId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "shared",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{note-server-url}}/shared/:hash",
+							"host": [
+								"{{note-server-url}}"
+							],
+							"path": [
+								"shared",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": "6ne52Vdv70RQm8E"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d19bbd51-ff55-4a4d-aa99-ebb14ef0dcf0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4aef9357-876c-4fce-bc45-f35354ea64e2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "health-check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{note-server-url}}/health-check",
+					"host": [
+						"{{note-server-url}}"
+					],
+					"path": [
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{note-server-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "68426e97-c392-43f2-bf55-e7de3e040458",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "81b246c2-8525-48b0-b059-f33ce8950361",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

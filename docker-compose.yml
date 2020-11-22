@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  #notes-server:
+  #  image: notes-server
+  #  ports:
+  #    - "55505:55505"
+  #  restart: always
+  #  depends_on:
+  #    - mysql
+  #    - redis
+  #  networks:
+  #    - notes-net
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: "notes"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "123321"
+      MYSQL_ROOT_PASSWORD: "supersecretpassword"
+    command:
+      - --collation-server=utf8mb4_unicode_ci
+      - --character-set-server=utf8mb4
+    #volumes:
+    #  - ./databases/mysql_data:/var/lib/mysql
+    networks:
+      - notes-net
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    restart: always
+    #volumes:
+    #  - ./databases/redis_data:/data
+    networks:
+      - notes-net
+
+networks:
+  notes-net:

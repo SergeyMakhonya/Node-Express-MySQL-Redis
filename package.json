@@ -1,0 +1,49 @@
+{
+  "name": "notes-server",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf build build/* json-schema/*",
+    "test": "npm run build && mocha -r ts-node/register tests/**/*.test.ts --exit",
+    "watch": "nodemon -e ts",
+    "build": "npm run clean && mkdirp build && npm run json-schema && tsc",
+    "json-schema": "mkdirp src/json-schema && typescript-json-schema --required --noExtraProps -o ./src/json-schema/notes-server.json ./src/types.ts \"*\"",
+    "start": "node ./build/main.js"
+  },
+  "author": "SergeyMakhonya",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "6.12.6",
+    "body-parser": "^1.19.0",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "hashids": "^2.2.2",
+    "jsonwebtoken": "8.5.1",
+    "md5": "^2.3.0",
+    "mkdirp": "^1.0.4",
+    "mysql": "2.18.1",
+    "mysql-migration-promise": "^0.3.1",
+    "nodemon": "2.0.4",
+    "redis": "^3.0.2",
+    "requirejs": "2.3.6",
+    "rimraf": "3.0.2",
+    "supertest": "^6.0.1",
+    "typescript": "4.0.5",
+    "typescript-json-schema": "^0.43.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/express": "4.17.9",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/mocha": "^8.0.4",
+    "@types/mysql": "2.15.15",
+    "@types/node": "^14.14.9",
+    "@types/redis": "^2.8.28",
+    "@types/supertest": "^2.0.10",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "ts-node": "^9.0.0",
+    "typings": "^2.1.1"
+  }
+}
