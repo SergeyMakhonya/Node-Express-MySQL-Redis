@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "clean": "rimraf build build/* json-schema/*",
-    "test": "npm run build && mocha -r ts-node/register tests/**/*.test.ts --exit",
+    "test": "npm run build && mocha -r ts-node/register \"tests/**/*.test.ts\" --exit --timeout 10000",
     "watch": "nodemon -e ts",
     "build": "npm run clean && mkdirp build && npm run json-schema && tsc",
     "json-schema": "mkdirp src/json-schema && typescript-json-schema --required --noExtraProps -o ./src/json-schema/notes-server.json ./src/types.ts \"*\"",

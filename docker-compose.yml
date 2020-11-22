@@ -26,8 +26,10 @@ services:
       - --character-set-server=utf8mb4
     #volumes:
     #  - ./databases/mysql_data:/var/lib/mysql
-    networks:
-      - notes-net
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
   redis:
     image: "redis:alpine"
     ports:
@@ -35,8 +37,3 @@ services:
     restart: always
     #volumes:
     #  - ./databases/redis_data:/data
-    networks:
-      - notes-net
-
-networks:
-  notes-net:

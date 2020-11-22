@@ -3,7 +3,10 @@ import * as jwt from 'jsonwebtoken';
 import {config} from '../config';
 import {UserId} from '../base-types';
 
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+    host: config.redisHost,
+    port: config.redisPort,
+});
 
 redisClient.on('error', function(error) {
     console.error('REDIS ERROR: ' + error);

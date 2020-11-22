@@ -8,6 +8,9 @@ export interface Config {
     dbUser: string;
     dbPassword: string;
 
+    redisHost: string;
+    redisPort: number;
+
     hashSalt: string;
 
     publicUrls: string[];
@@ -39,6 +42,9 @@ export function loadConfig(envFileName: string = '.env') {
         dbDatabase: process.env.DB_DATABASE,
         dbUser: process.env.DB_USER,
         dbPassword: process.env.DB_PASSWORD,
+
+        redisHost: process.env.DB_HOST,
+        redisPort: +process.env.DB_PORT,
     
         hashSalt: process.env.HASH_SALT,
     
